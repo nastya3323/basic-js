@@ -23,11 +23,77 @@ const { NotImplementedError } = require('../lib');
  *  [1, 1, 1]
  * ]
  */
-function minesweeper(/* matrix */) {
-  // Remove line below and write your code here
-  throw new NotImplementedError('Not implemented');
+function minesweeper(matrix) {
+  const result = [];
+  const rows = matrix.length;
+
+  for (let i = 0; i < rows; i += 1) {
+    const cols = matrix[i].length;
+    const maxCols = cols - 1;
+    const maxRows = rows - 1;
+
+    const mines = [];
+
+    for (let j = 0; j < cols; j += 1) {
+      let countMine = 0;
+
+      if (i !== 0 && j !== 0) {
+        if (matrix[i - 1][j - 1]) {
+          countMine += 1;
+        }
+      }
+
+      if (i !== 0) {
+        if (matrix[i - 1][j]) {
+          countMine += 1;
+        }
+      }
+
+      if (j !== 0) {
+        if (matrix[i][j - 1]) {
+          countMine += 1;
+        }
+      }
+
+      if (i !== 0 && j !== maxCols) {
+        if (matrix[i - 1][j + 1]) {
+          countMine += 1;
+        }
+      }
+
+      if (i !== maxRows && j !== 0) {
+        if (matrix[i + 1][j - 1]) {
+          countMine += 1;
+        }
+      }
+
+      if (i !== maxRows && j !== maxCols) {
+        if (matrix[i + 1][j + 1]) {
+          countMine += 1;
+        }
+      }
+
+      if (i !== maxRows) {
+        if (matrix[i + 1][j]) {
+          countMine += 1;
+        }
+      }
+
+      if (j !== maxCols) {
+        if (matrix[i][j + 1]) {
+          countMine += 1;
+        }
+      }
+
+      mines.push(countMine);
+    }
+
+    result.push(mines);
+  }
+
+  return result;
 }
 
 module.exports = {
-  minesweeper
+  minesweeper,
 };
